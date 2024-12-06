@@ -1,0 +1,58 @@
+import { inject, Injector } from '@angular/core';
+
+import { MessageService } from 'primeng/api';
+
+export interface CurrentToastManager {
+  service: MessageService;
+  showSuccess(summary: string, detail: string, life?: number): void;
+  showInfo(summary: string, detail: string, life?: number): void;
+  showWarn(summary: string, detail: string, life?: number): void;
+  showError(summary: string, detail: string, life?: number): void;
+}
+
+export function getToastManager(): CurrentToastManager {
+  // const myinjector = inject(Injector);
+  const messageservice = inject(MessageService);
+
+  const toastmanager = {
+    service: messageservice,
+
+    showSuccess(summary: string, detail: string, life = 3000): void {
+      this.service.add({
+        severity: 'success',
+        summary: summary,
+        detail: detail,
+        life: life
+      });
+    },
+
+    showInfo(summary: string, detail: string, life = 3000): void {
+      this.service.add({
+        severity: 'info',
+        summary: summary,
+        detail: detail,
+        life: life
+      });
+    },
+
+    showWarn(summary: string, detail: string, life = 3000): void {
+      this.service.add({
+        severity: 'warn',
+        summary: summary,
+        detail: detail,
+        life: life
+      });
+    },
+
+    showError(summary: string, detail: string, life = 3000): void {
+      this.service.add({
+        severity: 'error',
+        summary: summary,
+        detail: detail,
+        life: life
+      });
+    }
+  }
+
+	return toastmanager;
+}

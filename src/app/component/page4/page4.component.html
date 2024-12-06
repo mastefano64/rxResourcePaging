@@ -1,0 +1,86 @@
+<div>
+  Example-4<br>
+
+  <p class="fontsize">
+    <b>rxResourcePaging/rxResource with pagination, filter and sort.</b>
+    The rxResourcePaging signal wraps a resource signal. It exposes properties and methods for paging:
+    count, minpage, maxpage, hasFirst, hasPrevious, hasNext, hasLast, first(), previous(), next(), last(), goToPage(page: number).<br>
+    <a href="">page4.html</a>
+    &nbsp;-&nbsp;<a href="">page4.ts</a>
+    &nbsp;-&nbsp;<a href="">rx-resource-paging.ts</a>
+    &nbsp;-&nbsp;<a href="">navigator-manager.ts</a>
+    &nbsp;-&nbsp;<a href="">paging-options.ts</a>
+    &nbsp;-&nbsp;<a href="">paging-request.ts</a>
+    &nbsp;-&nbsp;<a href="">paging-ref.ts</a>
+  </p>
+
+  <p>
+    <select [(ngModel)]="filter1" (change)="onChangeFilter1()">
+      <option value="-1">All</option>
+      <option value="name 1">name 1*</option>
+      <option value="name 2">name 2*</option>
+    </select>&nbsp;
+    <select [(ngModel)]="filter2" (change)="onChangeFilter2()">
+      <option value="-1">All</option>
+      <option value="customerA 1">customerA 1*</option>
+      <option value="customerB 1">customerB 1*</option>
+    </select>&nbsp;
+    <select [(ngModel)]="order" (change)="onChangeOrder()">
+      <option value="-1">None</option>
+      <option value="1">Name asc</option>
+      <option value="2">Customer asc</option>
+      <option value="3">Name desc</option>
+      <option value="4">Customer desc</option>
+    </select>&nbsp;
+  </p>
+
+  <p>
+    <button (click)="onGoToPageClick(3)">
+      Go to page 3
+    </button>&nbsp;
+    <button (click)="onGoToPageClick(6)">
+      Go to page 6
+    </button>&nbsp;
+    <button (click)="onGoToPageClick(9)">
+      Go to page 9
+    </button>&nbsp;
+  </p>
+
+  <p>
+    <button (click)="onNavButtonClick('first')" [disabled]="!paging.hasFirst()">
+      First
+    </button>&nbsp;
+    <button (click)="onNavButtonClick('previous')" [disabled]="!paging.hasPrevious()">
+      Previous
+    </button>&nbsp;
+    ({{ data.request().page }} - {{ paging.maxpage() + 1 }}/{{ paging.count() }})&nbsp;
+    <button (click)="onNavButtonClick('next')" [disabled]="!paging.hasNext()">
+      Next
+    </button>&nbsp;
+    <button (click)="onNavButtonClick('last')" [disabled]="!paging.hasLast()">
+      Last
+    </button>&nbsp;
+  </p>
+
+  <p>
+    @if (resource.hasValue()) {
+    <div>
+      @for (data of resource.value()?.items; track data.id) {
+      <div>
+        {{ data.id }}&nbsp;
+        {{ data.name }}&nbsp;
+        {{ data.customer }}&nbsp;
+      </div>
+      }
+    </div>
+    } @else if (resource.status() === status.Error) {
+    <span>The request failed. Reason: {{ resource.error() }}</span>
+    }
+  </p>
+
+  <p>
+    isLoading: {{ resource.isLoading() }}<br>
+    status: {{ resource.status() }}<br>
+    error: {{ resource.error() }}<br>
+  </p>
+</div>

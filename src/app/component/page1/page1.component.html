@@ -1,0 +1,43 @@
+<div>
+  Example-1<br>
+
+  <p class="fontsize">
+    <b>rxResource without pagination.</b>
+    The rxResourcePaging signal wraps a resource signal. It exposes properties and methods for paging:
+    count, minpage, maxpage, hasFirst, hasPrevious, hasNext, hasLast, first(), previous(), next(), last(), goToPage(page: number).<br>
+    <a href="">page1.html</a>
+    &nbsp;-&nbsp;<a href="">page1.ts</a>
+    &nbsp;-&nbsp;<a href="">rx-resource-paging.ts</a>
+    &nbsp;-&nbsp;<a href="">navigator-manager.ts</a>
+    &nbsp;-&nbsp;<a href="">paging-options.ts</a>
+    &nbsp;-&nbsp;<a href="">paging-request.ts</a>
+    &nbsp;-&nbsp;<a href="">paging-ref.ts</a>
+  </p>
+
+  <p>
+    <button (click)="onButtonClick(1)">Page-1</button>&nbsp;
+    <button (click)="onButtonClick(2)">Page-2</button>&nbsp;
+    <button (click)="onButtonClick(3)">Page-3</button>&nbsp;
+  </p>
+
+  <p>
+    @if (resource.hasValue()) {
+    <div>
+      @for (data of resource.value()?.items; track data.id) {
+      <div>
+        {{ data.id }}&nbsp;
+        {{ data.name }}&nbsp;
+      </div>
+      }
+    </div>
+    } @else if (resource.status() === status.Error) {
+    <span>The request failed. Reason: {{ resource.error() }}</span>
+    }
+  </p>
+
+  <p>
+    isLoading: {{ resource.isLoading() }}<br>
+    status: {{ resource.status() }}<br>
+    error: {{ resource.error() }}<br>
+  </p>
+</div>
