@@ -2,6 +2,8 @@
 
 [My LinkedIn profile](https://www.linkedin.com/in/stefano-marchisio-sviluppatore-web-angular-javascript-aspnet-fullstack/)
 
+[Live Demo](https://www.stefanomarchisio.it/AppResource/index.html)
+
  The **rxResourcePaging** signal wraps a **rxResource** signal. It exposes properties and methods for paging data: count, minpage, maxpage, hasFirst, hasPrevious, hasNext, hasLast, first(), previous(), next(), last(), goToPage(page: number).
 
 ![rxResourcePaging](/screenshot/image1.png)
