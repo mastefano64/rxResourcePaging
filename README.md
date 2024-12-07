@@ -4,7 +4,11 @@
 
 [Live Demo](https://www.stefanomarchisio.it/AppResource/index.html)
 
- The **rxResourcePaging** signal wraps a **rxResource** signal. It exposes properties and methods for paging data: count, minpage, maxpage, hasFirst, hasPrevious, hasNext, hasLast, first(), previous(), next(), last(), goToPage(page: number).
+ As you know, the Angular **rxResource()** signal allows you to make HTTP calls to retrieve data to display in the interface. The purpose of this project is to add paging functionality.
+
+ <font color="red">IMPORTANT: the **rxResourcePaging** is experimental.</font> 
+ 
+ The **rxResourcePaging()** signal function wraps the Angular **rxResource()** signal function. It exposes properties and methods for paging data: count, minpage, maxpage, hasFirst, hasPrevious, hasNext, hasLast, first(), previous(), next(), last(), goToPage(page: number).
 
 ![rxResourcePaging](/screenshot/image1.png)
 
@@ -48,7 +52,7 @@
 
 ```
 
-Inside the constructor, the function **rxResourcePaging(this.options)** is called, which returns a **PagingResourceRef<T>** object. The signal-like properties are then used in the template.
+Inside the constructor, the function **rxResourcePaging(this.options)** is called and returns a **PagingResourceRef<T>** object. The signal-like properties are then used in the template.
 
 ```js
 export class Page4Component implements OnInit {
@@ -74,7 +78,7 @@ export class Page4Component implements OnInit {
 }
 ```
 
-The **PagingOptions<T>** and **PagingRequest** objects contain the configuration passed to the function **rxResourcePaging<T>(options: PagingOptions<T>): PagingResourceRef<T>**. At the beginning of the **rxResourcePaging** function the **PagingRequest** object is cloned. Similarly the **PagingRequest** object is cloned if the **reloadRequest** method is called. This happens if you want to do a new search specifying different filters and sorting.
+The **PagingOptions<T>** and **PagingRequest** objects contain the configuration passed to the function **rxResourcePaging<T>(options: PagingOptions<T>): PagingResourceRef<T>**. At the beginning of the **rxResourcePaging** function the **PagingRequest** object is cloned. Similarly the **PagingRequest** object is cloned if the **reloadRequest()** method is called. This way if a change to **Paging Options<T>** made externally it has no effect internally (unless the **reloadRequest()** method is called!). The **reloadRequest()** method is useful if you want to do a new search specifying different filters and sorting..
 
 ```js
 export function rxResourcePaging<T>(options: PagingOptions<T>): PagingResourceRef<T> {
@@ -113,7 +117,7 @@ export function rxResourcePaging<T>(options: PagingOptions<T>): PagingResourceRe
 	return pagingResourceRef;
 }
 ```
-The **rxResourcePaging** function returns an object of type **PagingResourceRef<T>**.
+The **rxResourcePaging** function returns an object of type **PagingResourceRef<T>**. The **PagingResourceRef<T>** object contains 3 properties and one method. 
 
 ```js
 export class PagingResourceRef<T> {
@@ -123,7 +127,8 @@ export class PagingResourceRef<T> {
   resourceRef!: ResourceRef<T>;
 }
 ```
-The **PagingResourceRef<T>** object contains 3 properties and one method. The **ResourceRef<T>** object is the object returned by the Angular **rxResource** function. The **PagingRef<T>** object instead contains the properties and methods for navigation.
+
+The **ResourceRef<T>** object is the object returned by the Angular **rxResource** function. The **PagingRef<T>** object instead contains the properties and methods for navigation. This way the paging functionality remains separate from the Angular **rxResource()** function.
 
 ```js
 export interface PagingRef<T> {
