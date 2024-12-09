@@ -117,6 +117,33 @@ export function rxResourcePaging<T>(options: PagingOptions<T>): PagingResourceRe
 	return pagingResourceRef;
 }
 ```
+
+The page number is stored in the "page" property inside the **PagingRequest** object, so the desired page is passed to the server on each call. The paging methods are instead inside the **NavigatorManager** object. When the server returns the response, the setTotalCount(count, pagesize) method is called and the following are set: count, minpage, maxpage, hasFirst, hasPrevious, hasNext, hasLast.
+
+When the paging methods are called, the page number is set (inside PagingRequest) and the signal request is updated.
+
+```js
+next(): boolean {
+  let valret = false;
+  if (this.hasNextCheck() === false) {
+    return valret;
+  }
+  valret = true;
+  const pg = this.request().page;
+  this.request().page = pg + 1;
+  this.triggerRequest();
+  this.reset();
+  return valret;
+} 
+
+...
+
+triggerRequest(): void {
+  const req = { ...this.request() };
+  this.request.set(req);
+}
+```
+
 The **rxResourcePaging** function returns an object of type **PagingResourceRef<T>**. The **PagingResourceRef<T>** object contains 3 properties and one method. 
 
 ```js
