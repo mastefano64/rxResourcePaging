@@ -92,6 +92,7 @@ export function rxResourcePaging<T>(options: PagingOptions<T>): PagingResourceRe
     request: request,
     loader: (param) => {
       const url = 'https://www.miosito.it';
+      // PagingOptions<T>.service: IDataService<T>
       return options.service.getPagingData2(param.request)
         .pipe(
           tap(response => {
