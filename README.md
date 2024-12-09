@@ -78,7 +78,7 @@ export class Page4Component implements OnInit {
 }
 ```
 
-The **PagingOptions<T>** and **PagingRequest** objects contain the configuration passed to the function **rxResourcePaging<T>(options: PagingOptions<T>): PagingResourceRef<T>**. At the beginning of the **rxResourcePaging** function the **PagingRequest** object is cloned. Similarly the **PagingRequest** object is cloned if the **reloadRequest()** method is called. This way if a change to **Paging Options<T>** made externally it has no effect internally (unless the **reloadRequest()** method is called!). The **reloadRequest()** method is useful if you want to do a new search specifying different filters and sorting..
+The **PagingOptions<T>** and **PagingRequest** objects contain the configuration passed to the function **rxResourcePaging<T>(options: PagingOptions<T>): PagingResourceRef<T>**. At the beginning of the **rxResourcePaging** function the **PagingRequest** object is cloned. Similarly the **PagingRequest** object is cloned if the **reloadRequest()** method is called. This way if a change to **Paging Options<T>** made externally it has no effect internally (unless the **reloadRequest()** method is called!). The **reloadRequest()** method is useful if you want to do a new search specifying different filters and sorting.
 
 ```js
 export function rxResourcePaging<T>(options: PagingOptions<T>): PagingResourceRef<T> {
@@ -114,8 +114,8 @@ export function rxResourcePaging<T>(options: PagingOptions<T>): PagingResourceRe
     pagingRef: paging,
     resourceRef: resource
   }
-
-	return pagingResourceRef;
+  
+  return pagingResourceRef;
 }
 ```
 
